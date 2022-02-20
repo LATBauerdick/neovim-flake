@@ -1,5 +1,5 @@
 {
-  description = "Luca's simple Neovim flake for easy configuration";
+  description = "neovim flake for easy configuration";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
@@ -11,8 +11,12 @@
       url = "github:neovim/neovim?dir=contrib";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    
+
     # Theme
+    "plugin:solarized-vim" = {
+      url = "github:altercation/vim-colors-solarized";
+      flake = false;
+    };
     "plugin:onedark-vim" = {
       url = "github:joshdick/onedark.vim";
       flake = false;
@@ -145,18 +149,18 @@
       in
       rec {
         defaultApp = apps.nvim;
-        defaultPackage = packages.neovimLuca;
+        defaultPackage = packages.neovimLATB;
 
         apps.nvim = {
             type = "app";
             program = "${defaultPackage}/bin/nvim";
           };
 
-        packages.neovimLuca = neovimBuilder {
+        packages.neovimLATB = neovimBuilder {
           # the next line loads a trivial example of a init.vim:
           customRC = pkgs.lib.readFile ./init.vim;
-          # if you wish to only load the onedark-vim colorscheme:
-          # start = with pkgs.neovimPlugins; [ onedark-vim ];
+          # if you wish to only load the solarized-vim colorscheme:
+          # start = with pkgs.neovimPlugins; [ solarized-vim ];
         };
       }
     );

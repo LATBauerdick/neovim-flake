@@ -1,2 +1,5 @@
 " place your custom init.vim here!
-colorscheme onedark
+colorscheme solarized
+lua <<EOF
+require('init')
+EOF
